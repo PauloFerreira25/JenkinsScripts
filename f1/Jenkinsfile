@@ -7,7 +7,7 @@ pipeline {
     stage("run run ANYTHING") {
       steps {
         echo "What to run: ${config.run_me}"
-        sh "${config.run_me}"
+        // sh "${config.run_me}"
       }
     }
   }
