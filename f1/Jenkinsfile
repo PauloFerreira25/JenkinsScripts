@@ -1,5 +1,5 @@
 def config = readYaml text: "${env.PIPELINE_CONFIG}"
-pipeline {
+
   stages {
     stage("run run ANYTHING") {
       steps {
@@ -8,4 +8,3 @@ pipeline {
       }
     }
   }
-}
