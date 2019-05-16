@@ -1,8 +1,5 @@
 folder("${PROJETO}"){}
 folder("${PROJETO}/${MODULE}"){}
-job("${PROJETO}/${MODULE}/Pipeline-Master") {
-
-}
 job("${PROJETO}/${MODULE}/K8s-Service") {
 
 }
@@ -16,10 +13,7 @@ multibranchPipelineJob("${PROJETO}/${MODULE}/Pipeline-Tags") {
     }
     factory {
         ConfigDrivenWorkflowBranchProjectFactory {
-            git {
-            remote("${GIT_URL}")
-            credentialsId('${GIT_CREDENTIAL}')
-        }
+            scriptPath('jenkins/Jenkinsfile')
         }
     }
     orphanedItemStrategy {
