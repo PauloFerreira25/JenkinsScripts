@@ -1,28 +1,9 @@
 #!/usr/bin/env groovy
+folder(${PROJETO})
+folder(${PROJETO}+"/"+${MODULE})
+FULL_FOLDER=${PROJETO}+"/"+${MODULE}
+echo ${FULL_FOLDER}
 
-node {
-
-    createFolder()
-    createMavenMultiBranchJob()
-    createKubernetesServiceDeploy()
-}
-
-def createFolder(){
-     stage ("Criar Diretorios") {
-        folder(${PROJETO})
-        folder(${PROJETO}+"/"+${MODULE})
-        environment { 
-            FULL_FOLDER=${PROJETO}+"/"+${MODULE}
-        }
-     }
-}
-def createMavenMultiBranchJob(){
-    // multibranchPipelineJob()
-     stage ("Criar Maven Job") {
-         echo ${FULL_FOLDER}
-     }
-}
-def createKubernetesServiceDeploy(){}
 
 // folder("testeF"){
 // job('testeF/DSL-Tutorial-1-Test') {
