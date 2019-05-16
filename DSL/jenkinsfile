@@ -1,24 +1,33 @@
 folder("${PROJETO}"){}
 folder("${PROJETO}/${MODULE}"){}
- multibranchPipelineJob("${PROJETO}/${MODULE}/Pipeline") {
-        branchSources {
-            git {
-            remote("https://gitlab.com/${REPO_PATH}")
-            credentialsId('gitlab_credentials')
+job("${PROJETO}/${MODULE}/Pipeline-Master") {
+
+}
+job("${PROJETO}/${MODULE}/K8s-Service") {
+
+}
+multibranchPipelineJob("${PROJETO}/${MODULE}/Pipeline-Tags") {
+    branchSources {
+        git {
+            remote("${GIT_URL}")
+            credentialsId('${GIT_CREDENTIAL}')
             includes('*')
-            }
-        }
-        factory {
-            workflowBranchProjectFactory {
-            scriptPath('jenkins/Jenkinsfile')
-            }
-        }
-        orphanedItemStrategy {
-            discardOldItems {
-            numToKeep(14)
-            }
         }
     }
+    factory {
+        ConfigDrivenWorkflowBranchProjectFactory {
+            git {
+            remote("${GIT_URL}")
+            credentialsId('${GIT_CREDENTIAL}')
+        }
+        }
+    }
+    orphanedItemStrategy {
+        discardOldItems {
+            numToKeep(14)
+        }
+    }
+}
 // folder("testeF"){
 // job('testeF/DSL-Tutorial-1-Test') {
 //     scm {
