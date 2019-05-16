@@ -1,39 +1,29 @@
 #!/usr/bin/env groovy
 
-pipeline{
-    agent{
-        label "node"
-    }
-    stages{
-        stage("A"){
-            steps{
-                echo "========executing A========"
-            }
-            post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "========A executed successfully========"
-                }
-                failure{
-                    echo "========A execution failed========"
-                }
-            }
-        }
-    }
-    post{
-        always{
-            echo "========always========"
-        }
-        success{
-            echo "========pipeline executed successfully ========"
-        }
-        failure{
-            echo "========pipeline execution failed========"
-        }
-    }
+node {
+
+    createFolder()
+    createMavenMultiBranchJob()
+    createKubernetesServiceDeploy()
 }
+
+def createFolder(){
+     stage ("Criar Diretorios") {
+        folder(${PROJETO})
+        folder(${PROJETO}+"/"+${MODULE})
+        environment { 
+            FULL_FOLDER=${PROJETO}+"/"+${MODULE}
+        }
+     }
+}
+def createMavenMultiBranchJob(){
+    // multibranchPipelineJob()
+     stage ("Criar Maven Job") {
+         echo ${FULL_FOLDER}
+     }
+}
+def createKubernetesServiceDeploy(){}
+
 // folder("testeF"){
 // job('testeF/DSL-Tutorial-1-Test') {
 //     scm {
