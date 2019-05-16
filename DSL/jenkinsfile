@@ -1,10 +1,26 @@
-#!/usr/bin/env groovy
-folder(${PROJETO})
-folder(${PROJETO}+"/"+${MODULE})
-FULL_FOLDER=${PROJETO}+"/"+${MODULE}
-echo ${FULL_FOLDER}
-
-
+folder("${PROJETO}"){
+  folder("${PROJETO}/${MODULE}"){
+    multibranchPipelineJob("${PROJETO}/${MODULE}/Pipeline") {
+        branchSources {
+            git {
+            remote("https://gitlab.com/${REPO_PATH}")
+            credentialsId('gitlab_credentials')
+            includes('*')
+            }
+        }
+        factory {
+            workflowBranchProjectFactory {
+            scriptPath('jenkins/Jenkinsfile')
+            }
+        }
+        orphanedItemStrategy {
+            discardOldItems {
+            numToKeep(14)
+            }
+        }
+    }
+  }
+}
 // folder("testeF"){
 // job('testeF/DSL-Tutorial-1-Test') {
 //     scm {
