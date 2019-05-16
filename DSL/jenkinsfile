@@ -1,6 +1,6 @@
-folder("${PROJETO}"){
-  folder("${PROJETO}/${MODULE}"){
-    multibranchPipelineJob("${PROJETO}/${MODULE}/Pipeline") {
+folder("${PROJETO}"){}
+folder("${PROJETO}/${MODULE}"){}
+ multibranchPipelineJob("${PROJETO}/${MODULE}/Pipeline") {
         branchSources {
             git {
             remote("https://gitlab.com/${REPO_PATH}")
@@ -19,8 +19,6 @@ folder("${PROJETO}"){
             }
         }
     }
-  }
-}
 // folder("testeF"){
 // job('testeF/DSL-Tutorial-1-Test') {
 //     scm {
